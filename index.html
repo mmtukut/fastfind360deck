@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>FastFind360 - Revolutionizing Property Discovery in Nigeria</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/reveal.css">
+    <link rel="stylesheet" href="../dist/theme/black.css" id="theme">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #0e109f;
+            --secondary-color: #00ff88;
+            --accent-color: #ff3366;
+        }
+
+        .reveal section img { 
+            border: none; 
+            box-shadow: none; 
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .metrics {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            gap: 15px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .metric-item {
+            background: rgba(14, 16, 159, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-width: 150px;
+        }
+
+        .metric-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 5px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9em;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        .chart-container {
+            width: 70%;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 15px;
+        }
+
+        .icon-stack {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .highlight-text {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--secondary-color);
+            transition: width 1s ease;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 10px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .feature-card p {
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+
+        .timeline-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        .timeline-item {
+            font-size: 0.9em;
+            margin: 10px 0;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-container {
+                max-width: 95%;
+            }
+            
+            .metrics {
+                flex-wrap: wrap;
+                max-width: 95%;
+            }
+
+            .chart-container {
+                width: 85%;
+            }
+        }
+
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .leadership-card {
+            background: linear-gradient(145deg, rgba(14, 16, 159, 0.1), rgba(0, 255, 136, 0.05));
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .leadership-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .leadership-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .leadership-avatar i {
+            font-size: 2em;
+            color: white;
+        }
+
+        .leadership-info h3 {
+            margin: 0;
+            color: var(--secondary-color);
+        }
+
+        .leadership-info p {
+            margin: 5px 0;
+            opacity: 0.8;
+        }
+
+        .competencies-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .competency-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .competency-item i {
+            color: var(--secondary-color);
+        }
+
+        .team-positions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .position-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .position-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Title Slide -->
+            <section data-auto-animate>
+                <h1 class="gradient-bg">FastFind360</h1>
+                <h3>Revolutionizing Property Discovery in Nigeria</h3>
+                <div class="icon-stack pulse">
+                    <i class="fas fa-building"></i>
+                    <i class="fas fa-search"></i>
+                    <i class="fas fa-chart-line"></i>
+                </div>
+            </section>
+
+            <!-- Problem Statement -->
+            <section data-auto-animate>
+                <h2>The Challenge</h2>
+                <div class="metrics">
+                    <div class="metric-item">
+                        <i class="fas fa-clock icon-stack"></i>
+                        <h3>2.5 Hours</h3>
+                        <p>Average Time Wasted per Property Visit</p>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="metric-item">
+                        <i class="fas fa-exclamation-triangle icon-stack"></i>
+                        <h3>₦1M+</h3>
+                        <p>Average Scam Losses</p>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="metric-item">
+                        <i class="fas fa-map-marked-alt icon-stack"></i>
+                        <h3>Zero</h3>
+                        <p>Infrastructure Insights</p>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill" style="width: 95%"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Solution -->
+            <section data-auto-animate>
+                <h2>Our Solution</h2>
+                <div class="grid-container">
+                    <div class="feature-card">
+                        <i class="fas fa-vr-cardboard icon-stack"></i>
+                        <h3>360° Virtual Tours</h3>
+                        <p>Experience properties from anywhere</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-brain icon-stack"></i>
+                        <h3>AI-Powered Matching</h3>
+                        <p>Smart property recommendations</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-chart-bar icon-stack"></i>
+                        <h3>Infrastructure Analysis</h3>
+                        <p>Comprehensive location insights</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-link icon-stack"></i>
+                        <h3>Blockchain Security</h3>
+                        <p>Secure, transparent transactions</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Market Trends -->
+            <section data-auto-animate>
+                <h2>Market Growth</h2>
+                <div class="chart-container">
+                    <canvas id="marketTrendChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Market Size -->
+            <section data-auto-animate>
+                <h2>Market Opportunity</h2>
+                <div class="chart-container">
+                    <canvas id="marketSizeChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Market Validation -->
+            <section data-auto-animate>
+                <h2>Current Traction & Partnerships</h2>
+                <div class="metrics">
+                    <div class="metric-item">
+                        <i class="fas fa-handshake icon-stack"></i>
+                        <h3>5+</h3>
+                        <p>Industry Conversations</p>
+                    </div>
+                    <div class="metric-item">
+                        <i class="fas fa-comments icon-stack"></i>
+                        <h3>10+</h3>
+                        <p>Mentor Connections</p>
+                    </div>
+                    <div class="metric-item">
+                        <i class="fas fa-lightbulb icon-stack"></i>
+                        <h3>3</h3>
+                        <p>Pilot Discussions</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Partnership Opportunities -->
+            <section data-auto-animate>
+                <h2>Partnership Opportunities</h2>
+                <div class="grid-container">
+                    <div class="feature-card">
+                        <i class="fas fa-building icon-stack"></i>
+                        <h3>Real Estate Agencies</h3>
+                        <p>Digital transformation & client experience enhancement</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-city icon-stack"></i>
+                        <h3>Property Developers</h3>
+                        <p>Pre-launch marketing & virtual showcases</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-chart-pie icon-stack"></i>
+                        <h3>Infrastructure Firms</h3>
+                        <p>Data sharing & analysis collaboration</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-laptop-code icon-stack"></i>
+                        <h3>PropTech Startups</h3>
+                        <p>API integration & market expansion</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- What We Bring to Partners -->
+            <section data-auto-animate>
+                <h2>Value for Partners</h2>
+                <div class="grid-container">
+                    <div class="feature-card">
+                        <i class="fas fa-database icon-stack"></i>
+                        <h3>Market Intelligence</h3>
+                        <p>Rich property & consumer behavior data</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-vr-cardboard icon-stack"></i>
+                        <h3>Tech Infrastructure</h3>
+                        <p>360° tours & virtual showcase platform</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-users icon-stack"></i>
+                        <h3>Customer Base</h3>
+                        <p>Access to digital-first property seekers</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-chart-line icon-stack"></i>
+                        <h3>Growth Opportunity</h3>
+                        <p>Early access to emerging PropTech market</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- What We're Seeking -->
+            <section data-auto-animate>
+                <h2>What We're Seeking</h2>
+                <div class="grid-container">
+                    <div class="feature-card">
+                        <i class="fas fa-brain icon-stack"></i>
+                        <h3>Industry Expertise</h3>
+                        <p>Market insights & operational guidance</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-hands-helping icon-stack"></i>
+                        <h3>Mentorship</h3>
+                        <p>Strategic advice & network access</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-door-open icon-stack"></i>
+                        <h3>Pilot Opportunities</h3>
+                        <p>Real-world testing & validation</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-comments-dollar icon-stack"></i>
+                        <h3>Strategic Investment</h3>
+                        <p>Smart capital & industry connections</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Go-to-Market Strategy -->
+            <section data-auto-animate>
+                <h2>Go-to-Market Strategy</h2>
+                <div class="grid-container">
+                    <div class="feature-card">
+                        <i class="fas fa-rocket icon-stack"></i>
+                        <h3>Phase 1: Launch</h3>
+                        <p>Abuja Pilot Program</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-expand-arrows-alt icon-stack"></i>
+                        <h3>Phase 2: Expand</h3>
+                        <p>Lagos & Port Harcourt</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-handshake icon-stack"></i>
+                        <h3>Phase 3: Partner</h3>
+                        <p>Agency Network Build</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-globe-africa icon-stack"></i>
+                        <h3>Phase 4: Scale</h3>
+                        <p>Pan-Nigerian Expansion</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Revenue Potential -->
+            <section data-auto-animate>
+                <h2>Revenue Potential</h2>
+                <div class="grid-container">
+                    <div class="feature-card">
+                        <i class="fas fa-crown icon-stack"></i>
+                        <h3>Premium Features</h3>
+                        <p>Virtual Tours & AI Insights</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-percentage icon-stack"></i>
+                        <h3>Transaction Success Fee</h3>
+                        <p>Secure Payment Platform</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-chart-bar icon-stack"></i>
+                        <h3>Market Intelligence</h3>
+                        <p>Data Analytics Services</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-building icon-stack"></i>
+                        <h3>B2B Solutions</h3>
+                        <p>Agency Management Tools</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Updated Team section -->
+            <section data-auto-animate>
+                <h2>Leadership & Vision</h2>
+                <div class="leadership-grid">
+                    <div class="leadership-card">
+                        <div class="leadership-header">
+                            <div class="leadership-avatar">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="leadership-info">
+                                <h3>Founder & CEO</h3>
+                                <p>Driving Innovation in PropTech</p>
+                            </div>
+                        </div>
+                        
+                        <div class="competencies-list">
+                            <div class="competency-item">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>Product Innovation</span>
+                            </div>
+                            <div class="competency-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Market Analysis</span>
+                            </div>
+                            <div class="competency-item">
+                                <i class="fas fa-code-branch"></i>
+                                <span>Tech Integration</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-positions">
+                        <div class="position-card">
+                            <i class="fas fa-laptop-code icon-stack"></i>
+                            <h4>CTO Position</h4>
+                            <p>Technical Leadership</p>
+                        </div>
+                        <div class="position-card">
+                            <i class="fas fa-chart-pie icon-stack"></i>
+                            <h4>Growth Lead</h4>
+                            <p>Market Expansion</p>
+                        </div>
+                        <div class="position-card">
+                            <i class="fas fa-handshake icon-stack"></i>
+                            <h4>Strategic Advisors</h4>
+                            <p>Industry Experts</p>
+                        </div>
+                        <div class="position-card">
+                            <i class="fas fa-users icon-stack"></i>
+                            <h4>Development Team</h4>
+                            <p>Tech Specialists</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Updated Roadmap with earlier timeline -->
+            <section data-auto-animate>
+                <h2>Roadmap</h2>
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <h3>Q1 2025</h3>
+                        <ul>
+                            <li>Beta Launch in Abuja</li>
+                            <li>Core Platform Development</li>
+                            <li>First Agency Partnerships</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Q2 2025</h3>
+                        <ul>
+                            <li>Virtual Tours Feature</li>
+                            <li>Infrastructure Analysis</li>
+                            <li>Mobile App Beta</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Q3 2025</h3>
+                        <ul>
+                            <li>Full Platform Launch</li>
+                            <li>Lagos Market Entry</li>
+                            <li>Payment Integration</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Investment Ask -->
+            <section data-auto-animate>
+                <h2>Investment Opportunity</h2>
+                <h3 class="highlight-text">₦100M Series A</h3>
+                <div class="chart-container">
+                    <canvas id="investmentChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Call to Action -->
+            <section data-auto-animate>
+                <h2 class="gradient-bg">Let's Shape the Future Together</h2>
+                <div class="feature-card pulse">
+                    <i class="fas fa-handshake icon-stack"></i>
+                    <h3>Open for Conversations</h3>
+                    <div style="margin-top: 20px;">
+                        <p><i class="fas fa-envelope"></i> muhammadmuhammadtukur13@gmail.com </p>
+                        <p><i class="fas fa-phone"></i> +234 805 641 9040</p>
+                        <p><i class="fas fa-linkedin"></i> https://linkedin.com/in/MMTukurOfficial</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="../dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            center: true,
+            hash: true,
+            transition: 'slide',
+            autoAnimateEasing: 'ease-out',
+            autoAnimateDuration: 0.8,
+            autoAnimateUnmatched: false,
+            height: '100%',
+            margin: 0.01,
+            minScale: 0.2,
+            maxScale: 1.5,
+            mouseWheel: true,
+            scroll: true,
+            scrollProgress: true,
+            overview: true
+        });
+
+        // Market Trend Chart
+        const marketTrendCtx = document.getElementById('marketTrendChart').getContext('2d');
+        new Chart(marketTrendCtx, {
+            type: 'line',
+            data: {
+                labels: ['2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    label: 'Market Growth (₦ Trillion)',
+                    data: [15, 18, 21, 23, 25],
+                    borderColor: '#00ff88',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#fff'
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        ticks: { color: '#fff' }
+                    },
+                    x: {
+                        ticks: { color: '#fff' }
+                    }
+                }
+            }
+        });
+
+        // Market Size Chart
+        const marketSizeCtx = document.getElementById('marketSizeChart').getContext('2d');
+        new Chart(marketSizeCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Total Market', 'Urban Solutions', 'Initial Target'],
+                datasets: [{
+                    data: [25, 1, 0.1],
+                    backgroundColor: ['#0e109f', '#00ff88', '#ff3366']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#fff'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Investment Allocation Chart
+        const investmentCtx = document.getElementById('investmentChart').getContext('2d');
+        new Chart(investmentCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Technology', 'Marketing', 'Team', 'Operations'],
+                datasets: [{
+                    label: 'Investment Allocation',
+                    data: [40, 30, 20, 10],
+                    backgroundColor: ['#0e109f', '#00ff88', '#ff3366', '#ffbb33']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#fff'
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        ticks: { color: '#fff' }
+                    },
+                    x: {
+                        ticks: { color: '#fff' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html> 
